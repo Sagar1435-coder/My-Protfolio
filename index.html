@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sagar Chawla | 3D Animator, CGI Filmmaker & Game Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles & Cyber Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        :root {
+            --bg-color: #030305;         
+            --surface-color: rgba(15, 16, 22, 0.65); 
+            --accent-color: #ff0000;     
+            --accent-glow: rgba(255, 0, 51, 0.6);
+            --secondary-accent: #ffffff; 
+            --secondary-glow: rgba(255, 255, 255, 0.4);
+            --cyber-cyan: #00f0ff;
+            --cyber-cyan-glow: rgba(0, 240, 255, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #8a99ad;
+        }
+
+        body {
+            background: #0B0B0B;
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            cursor: none; 
+        }
+
+        /* --- SCI-FI CUSTOM CURSOR STYLES --- */
+        .custom-cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff;
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .custom-cursor-ring {
+            width: 30px;
+            height: 30px;
+            border: 1.5px solid #00f0ff;
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9998;
+            transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s; 
+        }
+
+        .custom-cursor-ring.hovered {
+            width: 45px;
+            height: 45px;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+            background: rgba(255, 0, 51, 0.05);
+        }
+        
+        a, button, .project-card, .contact-card, .skill-node, .hud-panel {
+            cursor: none !important;
+        }
+
+        /* Background Particle Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(3, 3, 5, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 0, 51, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            text-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .logo span {
+            color: var(--accent-color);
+            text-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after { width: 100%; }
+        nav a:hover { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-glow); }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: transparent;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            white-space: normal;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 40%, #7c8896 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro-text{
+    color: #ff0000;
+    -webkit-text-fill-color: #ff0000;
+    text-shadow: 0 0 15px rgba(255,0,0,0.6);
+        }
+.hero p.hero-role{
+    font-size: 3rem !important;
+}
+
+.hero-role{
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: white;
+    margin-bottom: 3.5rem;
+    text-transform: uppercase;
+}
+
+#changing-text{
+    color: #ff0000;
+    text-shadow: 0 0 15px rgba(255,0,0,0.7);
+} 
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--secondary-accent);
+            margin-bottom: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .cta-buttons { display: flex; gap: 1.5rem; }
+ 
+        .hero{
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg{
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50vw;
+    height: 100vh;
+
+    background-image: url('web.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.hero > *:not(.hero-bg) {
+    position: relative;
+    z-index: 1;
+}
+
+
+
+        .btn {
+            padding: 1rem 3rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 0 25px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--secondary-accent);
+            color: var(--secondary-accent);
+            transform: translateY(-3px);
+        }
+
+        /* Section Settings */
+        section {
+            padding: 9rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            margin-bottom: 5rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .section-title::before { content: '// '; color: var(--accent-color); }
+
+        #showreel .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .showreel-subtitle {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* About Section Layout */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 900px;
+        }
+
+        .about-text p {
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+        }
+
+        /* Showreel Frame */
+        .showreel-container {
+            max-width: 950px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 0, 51, 0.4);
+            box-shadow: 0 0 40px rgba(255, 0, 51, 0.25);
+            aspect-ratio: 16 / 9;
+        }
+
+        .showreel-container video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ==========================================================
+           --- HIGHLY UPGRADED SCI-FI ASYMMETRIC GRID HUDS ---
+           ========================================================== */
+        .skills-asymmetric-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(220px, auto);
+            gap: 1.8rem;
+        }
+
+        .hud-panel {
+            background: linear-gradient(145deg, rgba(10, 11, 16, 0.85) 0%, rgba(4, 5, 7, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 2.2rem;
+            position: relative;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        /* Asymmetric Layout Spans */
+        .span-large { grid-column: span 2; grid-row: span 2; }
+        .span-tall { grid-row: span 2; }
+        .span-wide { grid-column: span 2; }
+
+        /* Tech HUD corner sci-fi brackets & crosshairs */
+        .hud-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 14px; height: 14px;
+            border-top: 3px solid rgba(255,255,255,0.2);
+            border-left: 3px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+        .hud-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0; width: 14px; height: 14px;
+            border-bottom: 3px solid rgba(255,255,255,0.2);
+            border-right: 3px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        /* Cyberpunk Top Tech Bar Decoration */
+        .cyber-bar {
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        /* Panel Top Terminal ID tags */
+        .hud-id {
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            font-size: 0.6rem;
+            font-family: monospace;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            opacity: 0.6;
+        }
+
+        /* Hover Modifications */
+        .hud-panel:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Interactive Themes per panel */
+        .panel-3d:hover { border-color: rgba(255, 255, 255, 0.2); }
+        .panel-3d:hover::before, .panel-3d:hover::after { border-color: var(--secondary-accent); }
+        
+        .panel-engine:hover { border-color: rgba(0, 240, 255, 0.3); box-shadow: 0 15px 40px rgba(0, 240, 255, 0.1); }
+        .panel-engine:hover::before, .panel-engine:hover::after { border-color: var(--cyber-cyan); }
+        .panel-engine .hud-id { color: var(--cyber-cyan); }
+
+        .panel-vfx:hover { border-color: rgba(255, 0, 51, 0.3); box-shadow: 0 15px 40px rgba(255, 0, 51, 0.15); }
+        .panel-vfx::before { border-top-color: rgba(255, 0, 51, 0.2); border-left-color: rgba(255, 0, 51, 0.2); }
+        .panel-vfx::after { border-bottom-color: rgba(255, 0, 51, 0.2); border-right-color: rgba(255, 0, 51, 0.2); }
+        .panel-vfx:hover::before, .panel-vfx:hover::after { border-color: var(--accent-color); }
+        .panel-vfx .hud-id { color: var(--accent-color); }
+
+        /* Tech HUD Headers */
+        .hud-panel h3 {
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .hud-panel h3 i { color: var(--text-muted); transition: all 0.3s ease; }
+        .panel-3d:hover h3 i { color: var(--secondary-accent); text-shadow: 0 0 10px white; }
+        .panel-engine h3 i { color: rgba(0, 240, 255, 0.5); }
+        .panel-engine:hover h3 i { color: var(--cyber-cyan); text-shadow: 0 0 10px var(--cyber-cyan-glow); }
+        .panel-vfx h3 i { color: rgba(255, 0, 51, 0.5); }
+        .panel-vfx:hover h3 i { color: var(--accent-color); text-shadow: 0 0 10px var(--accent-glow); }
+
+        /* Blinking Terminal Live Status Nodes */
+        .live-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.65rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.03);
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-left: auto;
+        }
+        .status-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #63ff70;
+            box-shadow: 0 0 8px #63ff70;
+            animation: cyber-blink 1.5s infinite;
+        }
+        .panel-engine .status-dot { background-color: var(--cyber-cyan); box-shadow: 0 0 8px var(--cyber-cyan); }
+        .panel-vfx .status-dot { background-color: var(--accent-color); box-shadow: 0 0 8px var(--accent-color); }
+
+        @keyframes cyber-blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+        /* Advanced Nodes Styling */
+        .skill-nodes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-node {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0.6rem 1.1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Neo Sci-Fi Node Hover States */
+        .panel-3d .skill-node:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--secondary-accent);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+            transform: scale(1.03);
+        }
+
+        .panel-engine .skill-node:hover {
+            background: rgba(0, 240, 255, 0.03);
+            border-color: var(--cyber-cyan);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+            transform: scale(1.03);
+        }
+
+        .panel-vfx .skill-node:hover {
+            background: rgba(255, 0, 51, 0.03);
+            border-color: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.3);
+            transform: scale(1.03);
+        }
+
+        /* Futuristic Projects Showcase */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--surface-color);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary-accent);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.15);
+        }
+
+        .project-video-container {
+            width: 100%;
+            height: 220px;
+            background: #050508;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-card:first-child .project-video-container {
+            height: 220px;
+        }
+
+        .project-video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.3s ease;
+            filter: brightness(0.6) grayscale(0.3);
+        }
+
+        .project-video-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.3s ease;
+            filter: brightness(0.6) grayscale(0.3);
+        }
+
+        .project-card:hover .project-video-container video,
+        .project-card:hover .project-video-container img {
+            transform: scale(1.03);
+            filter: brightness(1) grayscale(0);
+        }
+
+        .project-card:first-child .project-video-container img {
+            transform: scale(1.08);
+        }
+
+        .project-card:first-child:hover .project-video-container img {
+            transform: scale(1.12);
+        }
+
+        .project-label {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border-left: 2px solid var(--secondary-accent);
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .playback-status {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--text-muted);
+            padding: 3px 8px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover .playback-status {
+            background: rgba(0, 240, 255, 0.2);
+            color: var(--secondary-accent);
+        }
+
+        .project-info { padding: 2rem; }
+        .project-info h3 { margin-bottom: 1rem; font-size: 1.3rem; color: #ffffff; }
+        .project-info ul { list-style: none; color: var(--text-muted); font-size: 0.95rem; }
+        .project-info li { margin-bottom: 0.6rem; }
+
+        /* Connect Grid */
+        .contact-content { text-align: center; max-width: 800px; margin: 0 auto; }
+        .contact-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 1rem; }
+        .contact-links { display: flex; justify-content: center; gap: 2.5rem; margin-top: 4rem; flex-wrap: wrap; }
+
+        .contact-card {
+            background: rgba(10, 10, 15, 0.6);
+            width: 110px; height: 110px; border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .contact-card i { font-size: 2.4rem; color: #ffffff; }
+        .contact-card:hover { transform: translateY(-8px) scale(1.05); }
+
+        .card-mail:hover { border-color: #ff4757; box-shadow: 0 0 30px rgba(255, 71, 87, 0.4); }
+        .card-mail:hover i { color: #ff4757; }
+        .card-phone:hover { border-color: #2ed573; box-shadow: 0 0 30px rgba(46, 213, 115, 0.4); }
+        .card-phone:hover i { color: #2ed573; }
+        .card-insta:hover { border-color: #e84393; box-shadow: 0 0 30px rgba(232, 67, 147, 0.4); }
+        .card-insta:hover i { color: #e84393; }
+        .card-yt:hover { border-color: #ff0000; box-shadow: 0 0 30px rgba(255, 0, 0, 0.5); }
+        .card-yt:hover i { color: #ff0000; }
+        .card-x:hover { border-color: #1DA1F2; box-shadow: 0 0 30px rgba(29, 161, 242, 0.4); }
+        .card-x:hover i { color: #1DA1F2; }
+
+        /* Footer */
+        footer {
+            text-align: center; padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-muted); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .skills-asymmetric-grid { grid-template-columns: 1fr; }
+            .span-large, .span-tall, .span-wide { grid-column: span 1; grid-row: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 1.2rem; }
+            .hero h1 { font-size: 3.2rem; }
+            .about-content { grid-template-columns: 1fr; gap: 3rem; }
+            .custom-cursor-dot, .custom-cursor-ring { display: none; }
+            body { cursor: default; }
+        }
+
+        /* --- REVEAL EFFECT ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+    
+        }
+ 
+        /* =========================
+   MOBILE OPTIMIZATION
+========================= */
+@media (max-width: 768px) {
+
+    header{
+        padding: 10px 0;
+    }
+
+    .nav-container{
+        flex-direction: column;
+        gap: 12px;
+        padding: 1rem;
+    }
+
+    nav ul{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    nav a{
+        font-size: 0.75rem;
+    }
+
+    .hero{
+        min-height: 100vh;
+        padding: 120px 20px 50px;
+    }
+
+    .hero h1{
+        font-size: 2rem;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .hero-role{
+        font-size: 1.2rem !important;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
+    }
+
+    .cta-buttons{
+        flex-direction: column;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .btn{
+        width: 100%;
+        text-align: center;
+        padding: 14px;
+    }
+
+    .hero-bg{
+        width: 100%;
+        opacity: 0.12;
+        background-size: cover;
+    }
+
+    section{
+        padding: 5rem 1rem;
+    }
+
+    .section-title{
+        font-size: 1.7rem;
+        margin-bottom: 2rem;
+    }
+
+    .about-text p{
+        font-size: 1rem;
+    }
+
+    .showreel-container{
+        width: 100%;
+    }
+
+    .skills-asymmetric-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .hud-panel{
+        padding: 1.3rem;
+    }
+
+    .projects-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .project-video-container{
+        height: 200px;
+    }
+
+    .project-info{
+        padding: 1.2rem;
+    }
+
+    .contact-links{
+        gap: 1rem;
+    }
+
+    .contact-card{
+        width: 80px;
+        height: 80px;
+    }
+
+    .contact-card i{
+        font-size: 1.8rem;
+    }
+
+    .custom-cursor-dot,
+    .custom-cursor-ring{
+        display: none;
+    }
+
+    body{
+        cursor: auto;
+    }
+}
+        /* Elements waiting to be revealed */
+        .reveal { opacity: 0; }
+
+        /* Active reveal state */
+        .reveal.active { animation: fadeInUp 0.8s ease-out forwards; }
+        .reveal.reveal-scale { animation: fadeInScale 0.8s ease-out forwards; }
+        .reveal.reveal-left { animation: fadeInLeft 0.8s ease-out forwards; }
+        .reveal.reveal-right { animation: fadeInRight 0.8s ease-out forwards; }
+
+        /* Stagger animation delays */
+        .reveal:nth-child(1) { animation-delay: 0.1s; }
+        .reveal:nth-child(2) { animation-delay: 0.2s; }
+        .reveal:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor-dot" id="cursor-dot"></div>
+    <div class="custom-cursor-ring" id="cursor-ring"></div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">My Portfolio</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#showreel">Showreel</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <h1>
+    <span class="intro-text">MY NAME IS</span>
+    SAGAR CHAWLA
+</h1>
+        
+      <p class="hero-role">
+    I AM A <span id="changing-text"></span>
+</p>
+        <div class="cta-buttons">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title reveal reveal-left">My Journey</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p class="reveal reveal-left">My journey as a 3D Artist started with a strong curiosity for animation, films, and visual storytelling. Being self-taught, I dedicated countless hours to learning Blender, practicing animation principles, and exploring CGI techniques through personal projects.</p>
+                <p class="reveal reveal-left">Over time, I expanded my skills into cinematic filmmaking and game development, creating environments, character animations, and interactive experiences. Every project has helped me improve my creativity, technical abilities, and attention to detail.</p>
+                <p class="reveal reveal-left">Today, I continue learning new workflows while building professional-quality work that combines animation, CGI, and game development.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="showreel">
+        <h2 class="section-title reveal">Cinematic Showreel</h2>
+        <p class="showreel-subtitle">
+            "CGI Soul is the production house behind my CGI, animation, and visual storytelling projects."
+        </p>
+        <div class="showreel-container reveal reveal-scale">
+            <video src="showreel.mp4" controls autoplay muted poster="thumb.jpg" playsinline></video>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title reveal">Skills & Software</h2>
+        <div class="skills-asymmetric-grid">
+            
+            <div class="hud-panel span-large panel-3d reveal">
+                <div class="cyber-bar"></div>
+                <div class="hud-id">[01 // CORE_3D_ANIMATION]</div>
+                <h3>
+                    <i class="fa-solid fa-cube"></i> 3D Animation
+                    <span class="live-status"><span class="status-dot"></span> READY</span>
+                </h3>
+                <div class="skill-nodes-container">
+                    <span class="skill-node">Blender Core</span>
+                    <span class="skill-node">Character Animation</span>
+                    <span class="skill-node">Keyframe & Timing</span>
+                    <span class="skill-node">Character Rigging</span>
+                    <span class="skill-node">Cinematic Lighting</span>
+                    <span class="skill-node">Cycles / Eevee Rendering</span>
+                    <span class="skill-node">Camera Graph Animation</span>
+                    <span class="skill-node">Hard Surface Modeling</span>
+                    <span class="skill-node">Environment Design</span>
+                </div>
+            </div>
+
+            <div class="hud-panel span-tall panel-engine reveal">
+                <div class="cyber-bar"></div>
+                <div class="hud-id">[02 // ENGINE_CORE]</div>
+                <h3>
+                    <i class="fa-solid fa-gamepad"></i> Game Dev Engine
+                    <span class="live-status"><span class="status-dot"></span> LIVE</span>
+                </h3>
+                <div class="skill-nodes-container">
+                    <span class="skill-node">Unity Engine</span>
+                    <span class="skill-node">Unreal Engine</span>
+                    <span class="skill-node">C# Scripting</span>
+                    <span class="skill-node">Blueprint Visual Scripting</span>
+                    <span class="skill-node">Level Blueprinting</span>
+                    <span class="skill-node">Asset Optimization</span>
+                    <span class="skill-node">Real-time Shaders</span>
+                    <span class="skill-node">Interactive Mechanics</span>
+                </div>
+            </div>
+
+            <div class="hud-panel span-wide panel-vfx reveal">
+                <div class="cyber-bar"></div>
+                <div class="hud-id">[03 // COMPOSITING_VFX]</div>
+                <h3>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Advanced CGI & VFX
+                    <span class="live-status"><span class="status-dot"></span> ACTIVE</span>
+                </h3>
+                <div class="skill-nodes-container">
+                    <span class="skill-node">CGI Integration</span>
+                    <span class="skill-node">Motion Tracking</span>
+                    <span class="skill-node">Green Screen Compositing</span>
+                    <span class="skill-node">Color Grading Pipeline</span>
+                    <span class="skill-node">Face Tracking</span>
+                    <span class="skill-node">Cinematic Visual Storytelling</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title reveal">Featured Work</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card reveal">
+                <div class="project-video-container">
+                    <span class="project-label">CGI FILMMAKING</span>
+                    <span class="playback-status">IMAGE</span>
+                    <img src="cgi.jpeg" alt="Cinematic CGI project">
+                </div>
+                <div class="project-info">
+                    <h3>Cinematic CGI Projects</h3>
+                    <ul>
+                        <li>• Realistic CGI shots and cinematic sequences</li>
+                        <li>• Professional lighting and detailed camera work</li>
+                        <li>• Animation-driven visual storytelling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-video-container">
+                    <span class="project-label">3D ANIMATOR</span>
+                    <span class="playback-status">IMAGE</span>
+                    <img src="animation.jpg" alt="3D animation project">
+                </div>
+                <div class="project-info">
+                    <h3>Character Animation</h3>
+                    <ul>
+                        <li>• Character posing and dynamic animation</li>
+                        <li>• Fluid camera movement and cinematic shots</li>
+                        <li>• Frame-by-frame timing and animation polishing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-video-container">
+                    <span class="project-label">GAME DEV</span>
+                    <span class="playback-status">IMAGE</span>
+                    <img src="game.jpg" alt="Game development project">
+                </div>
+                <div class="project-info">
+                    <h3>Game Development</h3>
+                    <ul>
+                        <li>• Detailed game environment design</li>
+                        <li>• Integrating complex animated assets into scenes</li>
+                        <li>• Asset optimization for real-time applications</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title reveal">Let's Connect</h2>
+        <div class="contact-content">
+            <p class="reveal">Always open to collaboration on cinematic films, game projects, or 3D animation work.</p>
+            
+            <div class="contact-links">
+                <a href="mailto:sagarchawla041@gmail.com" class="contact-card card-mail reveal" title="Email Me">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+                <a href="https://x.com/SagarChawla3000" target="_blank" class="contact-card card-x reveal" title="X">
+                    <span style="font-size: 2.4rem; font-weight: bold;">𝕏</span>
+                </a>
+                <a href="https://instagram.com/cgibysagar" target="_blank" class="contact-card card-insta reveal" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@CGI_soul" target="_blank" class="contact-card card-yt reveal" title="YouTube Channel">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Sagar Chawla. All rights reserved.</p>
+    </footer>
+
+    <script>
+        /* 1. Background Particle System Engine */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 60;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 0, 51, ${this.alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        init();
+        animate();
+
+        /* 2. Video Hover Playback Control */
+        const projectCards = document.querySelectorAll('.project-card');
+
+        projectCards.forEach(card => {
+            const video = card.querySelector('video');
+            const statusBadge = card.querySelector('.playback-status');
+
+            if (!video) return;
+
+            card.addEventListener('mouseenter', () => {
+                video.play().then(() => {
+                    statusBadge.textContent = "PLAYING";
+                }).catch(error => {});
+            });
+
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+                video.currentTime = 0;
+                statusBadge.textContent = "PAUSED";
+            });
+        });
+
+        /* 3. INTERACTIVE SCI-FI MOUSE CURSOR ENGINE */
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+
+        let mouseX = 0, mouseY = 0; 
+        let ringX = 0, ringY = 0;   
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            dot.style.left = mouseX + 'px';
+            dot.style.top = mouseY + 'px';
+        });
+
+        function updateCursor() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+
+            ring.style.left = ringX + 'px';
+            ring.style.top = ringY + 'px';
+
+            requestAnimationFrame(updateCursor);
+        }
+        updateCursor();
+
+        const hoverTargets = document.querySelectorAll('a, button, .project-card, .contact-card, .skill-node, .hud-panel');
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => {
+                ring.classList.add('hovered');
+            });
+            target.addEventListener('mouseleave', () => {
+                ring.classList.remove('hovered');
+            });
+        });
+
+        /* 4. REVEAL EFFECT - INTERSECTION OBSERVER */
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(element => {
+            revealOnScroll.observe(element);
+        });
+
+        /* 5. EMAIL CLICK HANDLER */
+        const mailCard = document.querySelector('.card-mail');
+        if (mailCard) {
+            mailCard.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Try to open Gmail compose window
+                window.open('https://mail.google.com/mail/?view=cm&fs=1&to=sagarchawla041@gmail.com', '_blank');
+                // Fallback to mailto if needed
+                setTimeout(() => {
+                    window.location.href = 'mailto:sagarchawla041@gmail.com';
+                }, 100);
+            });
+        }
+
+        const roles = ["CGI ARTIST", "3D ANIMATOR", "GAME DEVELOPER"];
+
+        let roleIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        const text = document.getElementById("changing-text");
+
+        function typeWriter() {
+            const current = roles[roleIndex];
+
+            if (!deleting) {
+                text.textContent = current.substring(0, charIndex + 1);
+                charIndex++;
+
+                if (charIndex === current.length) {
+                    deleting = true;
+                    setTimeout(typeWriter, 1500);
+                    return;
+                }
+            } else {
+                text.textContent = current.substring(0, charIndex - 1);
+                charIndex--;
+
+                if (charIndex === 0) {
+                    deleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                }
+            }
+
+            setTimeout(typeWriter, deleting ? 50 : 100);
+        }
+
+        typeWriter();
+    </script>
+</body>
+</html>
